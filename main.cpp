@@ -3,6 +3,9 @@
 
 using namespace std;
 
+void addStudent(); 
+void addNode(Student newStudent); 
+
 int main() {
     bool run = true;
     char cmd[10];
@@ -13,7 +16,8 @@ int main() {
 
         //add student
         if (strcmp(cmd,"ADD") == 0) {
-           // add(list); 
+           addStudent(); 
+	   cout << "Student Added, bro" << endl;  
         }
         //print everyone
         else if (strcmp(cmd,"PRINT") == 0) {
@@ -32,4 +36,35 @@ int main() {
     }
 }
 
-//void add()
+void addStudent() {
+	Student* s = new Student(); 
+        cout << "Enter First Name: " << endl; 	
+	cin >> s->getFname();
+	cin.clear(); 
+	cin.ignore(10000, '\n');
+
+        cout << "Enter Last Name: " << endl; 	
+	cin >> s->getLname();
+	cin.clear(); 
+	cin.ignore(10000, '\n');
+		
+        cout << "Enter GPA: " << endl; 	
+	cin >> *s->getgpa();
+	cin.clear(); 
+	cin.ignore(10000, '\n');
+	
+        cout << "Enter Student ID: " << endl; 	
+	cin >> *s->getid();
+	cin.clear(); 
+	cin.ignore(10000, '\n');
+}
+
+void addNode(Student newStudent) {
+	Node* head = NULL; 	
+	Node* current = head;
+      if (current == NULL) {
+		head = new Node(); 
+		head->setStudent(newStudent);
+      }	      
+
+}

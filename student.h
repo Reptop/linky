@@ -3,24 +3,19 @@
 #include <iostream> 
 
 class Student {
-//destructor, constructor 
-Student(); 
-~Student(); 
+	public:
+	//destructor, constructor 
+	Student(); 
+	float* getgpa(); 
+	char* getFname();
+	char* getLname();
+	int* getid(); 
 
-float setgpa(float gpa);
-float getgpa(); 
-char setFname(char fname[80]);
-char getFname();
-char setLname(char Lname[80]);
-char getLname();
-int setid(int id); 
-int getid(); 
-
-private:
-float gpa; 
-int id; 
-char fname[80]; 
-char lname[80]; 
+	private:
+	float gpa; 
+	int id; 
+	char fname[80]; 
+	char lname[80]; 
 
 };
 #endif

@@ -2,6 +2,7 @@
 #include "node.h" 
 
 Node::Node(Student* newStudent) {
+	newStudent = NULL; 
 	next = NULL; 
 }
 
@@ -14,8 +15,12 @@ void Node::setNext(Node* newNext) {
 	next = newNext;
 }
 
-void Node::getNext() {
+Node* Node::getNext() {
 	return next; 
+}
+
+void Node::setStudent(Student* newStudent) {
+	newStudent = s;
 }
 
 Student* Node::getStudent() {

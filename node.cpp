@@ -2,7 +2,7 @@
 #include "node.h" 
 
 Node::Node(Student* newStudent) {
-	newStudent = NULL; 
+	s = newStudent; 
 	next = NULL; 
 }
 

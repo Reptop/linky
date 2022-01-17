@@ -1,7 +1,9 @@
 #ifndef NODE_H
 #define NODE_H
 #include <iostream> 
-#include "student.h" 
+#include "student.h"
+
+
 class Node {
 public:
 //destructor, constructor 

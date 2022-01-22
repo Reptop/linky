@@ -4,11 +4,13 @@
 using namespace std;
 
 void addStudent(); 
-void addNode(Student newStudent); 
+void addNode(Student* newStudent); 
 
 int main() {
     bool run = true;
     char cmd[10];
+    Node* head = NULL; 
+    
 
     while (run == true) {
         cout << "\nWould you like to ADD, DELETE, PRINT, or QUIT" << endl;
@@ -56,15 +58,32 @@ void addStudent() {
         cout << "Enter Student ID: " << endl; 	
 	cin >> *s->getid();
 	cin.clear(); 
-	cin.ignore(10000, '\n');
+	cin.ignore(10000, '\n'); 
 }
 
-void addNode(Student newStudent) {
-	Node* head = NULL; 	
-	Node* current = head;
-      if (current == NULL) {
-		head = new Node(); 
-		head->setStudent(newStudent);
-      }	      
+void addNode(Student* newStudent, Node* head) {
+  Node* previous;
+  Node* current = head;
 
+    if (current == NULL) {
+	head = new Node(newStudent); 
+        head->setStudent(newStudent);
+    }
+    else {
+    while (current -> getNext() != NULL) {
+      current = current -> getNext(); 
+    }
+    current->setNext(new Node(newStudent)); 
+    current -> getNext() -> setStudent(newStudent);
+  }
 }
+
+  void print(Node* next, void addStudent(), Node* head) {
+    if (next == head) {
+      cout << "List: "; 
+    }
+    if (next != NULL) {
+
+    }
+  }
+

@@ -16,7 +16,7 @@ void setStudent(Student* newStudent);
 Student* getStudent();
 
 
-private: 
+public: 
 Student* s; 
 Node* next; 
 

@@ -3,8 +3,9 @@
 
 using namespace std;
 
-void addStudent(); 
-void addNode(Student* newStudent); 
+void addStudent(Node* head); 
+void addNode(Student* newStudent);
+void print(Node* next, Node* head); 
 
 int main() {
     bool run = true;
@@ -18,12 +19,12 @@ int main() {
 
         //add student
         if (strcmp(cmd,"ADD") == 0) {
-           addStudent(); 
+           addStudent(head); 
 	   cout << "Student Added, bro" << endl;  
         }
         //print everyone
         else if (strcmp(cmd,"PRINT") == 0) {
-        
+       		print(head, head); 
 	}
 	else if (strcmp(cmd,"DELETE") == 0) { 
           //del(list); 
@@ -38,8 +39,26 @@ int main() {
     }
 }
 
-void addStudent() {
-	Student* s = new Student(); 
+ void addNode(Student* newStudent, Node* head) { 
+  Node* previous;
+  Node* current = head;
+
+    if (current == NULL) {
+	head = new Node(newStudent); 
+        head->setStudent(newStudent);
+    }
+    else {
+    	while (current -> getNext() != NULL) {
+      	current = current -> getNext(); 
+    }
+    current->setNext(new Node(newStudent)); 
+    current -> getNext() -> setStudent(newStudent);
+  }
+}
+
+
+void addStudent(Node* head) {
+	Student* s = new Student();   
         cout << "Enter First Name: " << endl; 	
 	cin >> s->getFname();
 	cin.clear(); 
@@ -58,32 +77,20 @@ void addStudent() {
         cout << "Enter Student ID: " << endl; 	
 	cin >> *s->getid();
 	cin.clear(); 
-	cin.ignore(10000, '\n'); 
+	cin.ignore(10000, '\n');
+
+	//add this student to a node 
+	addNode(s, head); 	
 }
 
-void addNode(Student* newStudent, Node* head) {
-  Node* previous;
-  Node* current = head;
-
-    if (current == NULL) {
-	head = new Node(newStudent); 
-        head->setStudent(newStudent);
-    }
-    else {
-    while (current -> getNext() != NULL) {
-      current = current -> getNext(); 
-    }
-    current->setNext(new Node(newStudent)); 
-    current -> getNext() -> setStudent(newStudent);
-  }
-}
-
-  void print(Node* next, void addStudent(), Node* head) {
+void print(Node* next, Node* head) {
     if (next == head) {
       cout << "List: "; 
     }
     if (next != NULL) {
-
+	next->getStudent();
+	cout << next->s->getgpa();  	
+       	print(next->getNext(), head); 	
     }
   }
 

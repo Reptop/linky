@@ -26,20 +26,3 @@ void Node::setStudent(Student* newStudent) {
 Student* Node::getStudent() {
 	return s; 
 }	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

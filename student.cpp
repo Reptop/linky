@@ -1,23 +1,41 @@
-#include <iostream> 
-#include <cstring> 
-#include "student.h" 
+#include <iostream>
+#include <cstring>
+#include "student.h"
+
+using namespace std;
 
 Student::Student() {
- //gonna leave this blank for now 
+  
 }
 
-float* Student::getgpa() {
-	return &gpa;
+Student::~Student() {
+  //yea
+  delete &first;
+  delete &last;
+  delete &ID;
+  delete &GPA;
 }
 
-char* Student::getFname(){
-	return fname; 
+char* Student::getFirst() {
+  return first;
 }
 
-char* Student::getLname(){
-	return lname; 
+char* Student::getLast() {
+  return last;
 }
 
-int* Student::getid() {
-	return &id;
+int Student::getID() {
+  return ID;
+}
+
+void Student::setID(int inID) {
+  ID = inID;
+}
+
+float Student::getGPA() {
+  return GPA;
+}
+
+void Student::setGPA(float inGPA) {
+  GPA = inGPA;
 }

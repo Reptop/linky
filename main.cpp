@@ -1,105 +1,134 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <stdio.h>
+#include <cstring>
+#include <iomanip>
 #include "node.h"
+#include "student.h"
 
 using namespace std;
 
-void addStudent(); 
-void addNode(Student* newStudent);
+//prototypes, or could put functions before main
+void addNew(Node* previous, Student* student);
 void print(Node* next);
-void deleteStudent();  
+//float average(Node* next);
+//void remove(Node* next, Node* previous, char name[]);
 
-Node* head = NULL; 
+Node* first = NULL;
 
 int main() {
-    bool run = true;
-    char cmd[10];
-    //Node* head = NULL; 
-    
-
-    while (run == true) {
-        cout << "\nWould you like to ADD, DELETE, PRINT, or QUIT" << endl;
-        cin >> cmd;
-
-        //add student
-        if (strcmp(cmd,"ADD") == 0) {
-           addStudent(); 
-	   cout << "Student Added, bro" << endl;  
-        }
-        //print everyone
-        else if (strcmp(cmd,"PRINT") == 0) {
-       		print(head); 
-	}
-	else if (strcmp(cmd,"DELETE") == 0) { 
-          //del(list); 
-            cout << "Student Deleted!" << endl;
-        }
-        else if (strcmp(cmd, "QUIT") == 0) {
-             cout << "See you next time..."; 
-             break;
-        }
-        else 
-            cout << "Invalid Input, dummy"; 
+  std::cout << std::fixed;
+  std::cout << std::setprecision(2);
+  //dont need this atm
+  //Node* first = NULL;
+  //Node* next = NULL;
+  while (true) {
+    char input[10];
+    int intInput;
+    float floatInput;
+    cout << "What would you like to do? ADD/PRINT/DELETE/AVERAGE/QUIT" << endl;
+    cin.get(input, 10);
+    cin.clear();
+    cin.ignore(1000000, '\n');
+    //add
+    //i mean, instead of doing this i could just lowercase the input 
+    if (strcmp(input, "ADD") == 0 || strcmp(input, "add") == 0) {
+      Student* newStudent = new Student;
+      cout << endl << "What is the first name?" << endl << ">> ";
+      cin.get(newStudent -> getFirst(), 10);
+      cin.clear();
+      cin.ignore(1000000, '\n');
+      cout << "What is the last name?" << endl << ">> ";
+      cin.get(newStudent -> getLast(), 10);
+      cin.clear();
+      cin.ignore(1000000, '\n');
+      cout << "What is the ID?" << endl << ">> ";
+      cin >> intInput;
+      cin.clear();
+      cin.ignore(1000000, '\n');
+      newStudent -> setID(intInput);
+      cout << "What is the GPA?" << endl << ">> ";
+      cin >> floatInput;
+      cin.clear();
+      cin.ignore(1000000, '\n');
+      newStudent -> setGPA(floatInput);
+      addNew(first, newStudent);
+      cout << "Student has been added" << endl << endl;
+    } 
+    //print
+    else if (strcmp(input, "PRINT") == 0 || strcmp(input, "print") == 0) {
+      if (first == NULL) {
+	cout << endl << "There are no students to print" << endl << endl;
+      }
+      else {
+	cout << endl;
+	print(first);
+      }
     }
-}
-
- void addNode(Student* newStudent) { 
-  //Node* previous;
-  Node* current = head;
-
-    if (current == NULL) {
-	head = new Node(newStudent); 
-        head->setStudent(newStudent);
+    //delete
+    else if (strcmp(input, "DELETE") == 0 || strcmp(input, "delete") == 0) {
+      if (first == NULL) {
+	cout << endl << "There are no students to delete" << endl << endl;
+      }
+      else {
+	cout << endl << "What is the first name of the student you would like to delete?" << endl << ">> ";
+	cin.get(input, 10);
+	cin.clear();
+	cin.ignore(1000000, '\n');
+	//first = remove(first, input);
+	remove(first, NULL, input);
+      }
+    }
+    //average
+    else if (strcmp(input, "AVERAGE") == 0 || strcmp(input, "average") == 0) {
+      if (first == NULL) {
+	cout << endl << "There are no students to average" << endl << endl;
+      }
+      else {
+	cout << endl << "The average GPA is: " << average(first) << endl << endl;
+      }
+    }
+    //quit
+    else if (strcmp(input, "QUIT") == 0 || strcmp(input, "quit") == 0) {
+      break;
     }
     else {
-    	while (current -> getNext() != NULL) {
-      	current = current -> getNext(); 
+      cout << "Invalid Input" << endl;
     }
-    current->setNext(new Node(newStudent)); 
-    current -> getNext() -> setStudent(newStudent);
-    //cout << "Its working" << endl; 
-    //cout << current -> getStudent() -> getLname() << ", ";  
-    //cout << head-> getStudent() -> getFname();  
   }
+  return 0;
 }
 
-void addStudent() {
-	Student* s = new Student();   
-        cout << "Enter First Name: " << endl; 	
-	cin >> s->getFname();
-	cin.clear(); 
-	cin.ignore(10000, '\n');
-
-        cout << "Enter Last Name: " << endl; 	
-	cin >> s->getLname();
-	cin.clear(); 
-	cin.ignore(10000, '\n');
-		
-        cout << "Enter GPA: " << endl; 	
-	cin >> *s->getgpa();
-	cin.clear(); 
-	cin.ignore(10000, '\n');
-	
-        cout << "Enter Student ID: " << endl; 	
-	cin >> *s->getid();
-	cin.clear(); 
-	cin.ignore(10000, '\n');
-
-	//add this student to a node 
-	addNode(s);
+void addNew(Node* previous, Student* student) {
+  if (first == NULL) {
+    first = new Node(student);
+  }
+  else if (student -> getID() < first -> getStudent() -> getID()) {
+    Node* temp = new Node(first -> getStudent());
+    temp -> setNext(first -> getNext());
+    first -> setStudent(student);
+    first -> setNext(temp);
+  }
+  else if (previous -> getNext() == NULL) {
+    Node* newNode = new Node(student);
+    previous -> setNext(newNode);
+  }
+  else if (student -> getID() < previous -> getNext() -> getStudent() -> getID()) {
+    Node* newNode = new Node(student);
+    newNode -> setNext(previous -> getNext());
+    previous -> setNext(newNode);
+  }
+  else {
+    addNew(previous -> getNext(), student);
+  }
 }
 
 void print(Node* next) {
   if (next != NULL) {
-    cout << next -> getStudent() -> getLname() << ", ";
-    cout << next -> getStudent() -> getFname() << endl;
-    cout << *next -> getStudent() -> getid() << endl;
-    cout << *next -> getStudent() -> getgpa() << endl << endl;
+    cout << next -> getStudent() -> getLast() << ", ";
+    cout << next -> getStudent() -> getFirst() << endl;
+    cout << next -> getStudent() -> getID() << endl;
+    cout << next -> getStudent() -> getGPA() << endl << endl;
     //recurse to next student
     print(next -> getNext());
   }
 }
-
-void deleteStudent() {
-        
-}
-

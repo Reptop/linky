@@ -3,14 +3,17 @@
 
 using namespace std;
 
-void addStudent(Node* head); 
+void addStudent(); 
 void addNode(Student* newStudent);
-void print(Node* next, Node* head); 
+void print(Node* next);
+void deleteStudent();  
+
+Node* head = NULL; 
 
 int main() {
     bool run = true;
     char cmd[10];
-    Node* head = NULL; 
+    //Node* head = NULL; 
     
 
     while (run == true) {
@@ -19,12 +22,12 @@ int main() {
 
         //add student
         if (strcmp(cmd,"ADD") == 0) {
-           addStudent(head); 
+           addStudent(); 
 	   cout << "Student Added, bro" << endl;  
         }
         //print everyone
         else if (strcmp(cmd,"PRINT") == 0) {
-       		print(head, head); 
+       		print(head); 
 	}
 	else if (strcmp(cmd,"DELETE") == 0) { 
           //del(list); 
@@ -39,8 +42,8 @@ int main() {
     }
 }
 
- void addNode(Student* newStudent, Node* head) { 
-  Node* previous;
+ void addNode(Student* newStudent) { 
+  //Node* previous;
   Node* current = head;
 
     if (current == NULL) {
@@ -53,11 +56,13 @@ int main() {
     }
     current->setNext(new Node(newStudent)); 
     current -> getNext() -> setStudent(newStudent);
+    //cout << "Its working" << endl; 
+    //cout << current -> getStudent() -> getLname() << ", ";  
+    //cout << head-> getStudent() -> getFname();  
   }
 }
 
-
-void addStudent(Node* head) {
+void addStudent() {
 	Student* s = new Student();   
         cout << "Enter First Name: " << endl; 	
 	cin >> s->getFname();
@@ -80,17 +85,21 @@ void addStudent(Node* head) {
 	cin.ignore(10000, '\n');
 
 	//add this student to a node 
-	addNode(s, head); 	
+	addNode(s);
 }
 
-void print(Node* next, Node* head) {
-    if (next == head) {
-      cout << "List: "; 
-    }
-    if (next != NULL) {
-	next->getStudent();
-	cout << next->s->getgpa();  	
-       	print(next->getNext(), head); 	
-    }
+void print(Node* next) {
+  if (next != NULL) {
+    cout << next -> getStudent() -> getLname() << ", ";
+    cout << next -> getStudent() -> getFname() << endl;
+    cout << *next -> getStudent() -> getid() << endl;
+    cout << *next -> getStudent() -> getgpa() << endl << endl;
+    //recurse to next student
+    print(next -> getNext());
   }
+}
+
+void deleteStudent() {
+        
+}
 

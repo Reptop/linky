@@ -1,3 +1,7 @@
+//Author: Raed K
+//Date: 1/1/222
+//This code uses a linked list to store student objects 
+
 #include <iostream>
 #include <stdio.h>
 #include <cstring>
